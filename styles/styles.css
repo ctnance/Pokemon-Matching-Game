@@ -237,7 +237,7 @@ footer {
 
 /* LANDSCAPE ORIENTATION */
 
-@media only screen and (min-device-width: 736px) and (max-device-width: 1000px) and (orientation: landscape) {
+@media only screen and (min-device-width: 650px) and (max-device-width: 1000px) and (orientation: landscape) {
   body {
     flex-direction: row;
     justify-content: center;

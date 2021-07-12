@@ -169,6 +169,11 @@ const flipCard = (card) => {
     // TODO: (FIX NEEDED) The same card can be "flipped" twice if tapped quickly enough
     // Do not flip card(s) if two are already flipped
     if (flippedCards.length === 2) { return; }
+
+    // Prevent the ability to match with the same card
+    if (flippedCards.length === 1) {
+        if (flippedCards[0].id === card.id) { return; }
+    }
     // Add flip class to card, but only if it does not have it already (which it shouldn't)
     card.classList.contains("flip") ? card.classList.remove("flip") : card.classList.add("flip");
     flippedCards.push(card);
