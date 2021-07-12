@@ -385,6 +385,29 @@ board.addEventListener("click", (event) => {
     }
 });
 
+// Listen for card taps
+board.addEventListener("touchstart", (event) => {
+    // Ensure the back of the card is clicked
+    if (event.target.classList.contains("card-back") || event.target.classList.contains("card-front")) {
+        // Start timer if not already started (timer is undefined)
+        if (!timer) { startTimer(); }
+        // Flip the card
+        flipCard(event.target.parentNode.parentNode);
+    }
+
+    if (event.target.classList.contains("inner-card")) {
+        if (!timer) { startTimer(); }
+        // Flip the card
+        flipCard(event.target.parentNode);
+    }
+
+    if (event.target.classList.contains("card-container")) {
+        if (!timer) { startTimer(); }
+        // Flip the card
+        flipCard(event.target);
+    }
+});
+
 resetButton.addEventListener("click", (event) => {
     playSound("./sfx/button.mp3");
     resetGame();
