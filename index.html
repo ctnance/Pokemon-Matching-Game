@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Match!</title>
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="./styles/styles.css">
+    <!-- Script -->
+    <script src="./js/index.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <h1>Pokémon Matching!</h1>
+        <h2>Gotta Match 'Em All!</h2>
+        <section class="scoreboard">
+            <p>Matches: <span class="matchesText">0</span></p>
+            <p>Moves: <span class="movesText">0</span></p>
+            <p>Timer: <span class="timerText">0:00</span></p>
+            <button class="resetButton">Reset</button>
+        </section>
+    </header>
+
+    <main>
+        <section class="board">
+        </section>
+    </main>
+
+    <footer>
+        <p>Created with ❤️ by Christopher Nance</p>
+    </footer>
+
+    <!-- Modal Section -->
+    <section class="end-game-modal">
+        <h2 class="message"></h2>
+        <p class="submessage"></p>
+        <p class="ratingText"></p>
+        <img class="modal-img" src="" alt="">
+        <button class="modalResetButton resetButton">Play Again?</button>
+        <button class="hideModalButton">X</button>
+    </section>
+</body>
+
+</html>
