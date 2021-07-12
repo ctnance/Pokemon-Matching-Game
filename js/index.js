@@ -360,11 +360,23 @@ const playSound = (path) => {
 // Listen for card clicks
 board.addEventListener("click", (event) => {
     // Ensure the back of the card is clicked
-    if (event.target.classList.contains("card-back")) {
+    if (event.target.classList.contains("card-back") || event.target.classList.contains("card-front")) {
         // Start timer if not already started (timer is undefined)
         if (!timer) { startTimer(); }
         // Flip the card
         flipCard(event.target.parentNode.parentNode);
+    }
+
+    if (event.target.classList.contains("inner-card")) {
+        if (!timer) { startTimer(); }
+        // Flip the card
+        flipCard(event.target.parentNode);
+    }
+
+    if (event.target.classList.contains("card-container")) {
+        if (!timer) { startTimer(); }
+        // Flip the card
+        flipCard(event.target);
     }
 });
 
