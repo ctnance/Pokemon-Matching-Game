@@ -203,7 +203,6 @@ const flipCard = (card) => {
   }
   // Add flip class to card, but only if it does not have it already (which it shouldn't)
   card.classList.add("flip");
-  card.querySelector(".card-back").style.zIndex = "10";
   flippedCards.push(card);
 
   // Play card flip sound
@@ -288,8 +287,6 @@ const unflipCards = () => {
   // Remove .flip class from cards
   flippedCards[0].classList.remove("flip");
   flippedCards[1].classList.remove("flip");
-  flippedCards[0].querySelector(".card-back").style.zIndex = "auto";
-  flippedCards[1].querySelector(".card-back").style.zIndex = "auto";
 
   // Play card flip reverse sound
   playSound("./sfx/card-flip-reverse.mp3");
@@ -414,30 +411,6 @@ board.addEventListener("click", (event) => {
     handleCardClick(event.target);
   }
 });
-
-// Listen for card taps
-// board.addEventListener("touchstart", (event) => {
-
-//     // Ensure the back of the card is clicked
-//     if (event.target.classList.contains("card-back") || event.target.classList.contains("card-front")) {
-//         // Start timer if not already started (timer is undefined)
-//         if (!timer) { startTimer(); }
-//         // Flip the card
-//         flipCard(event.target.parentNode.parentNode);
-//     }
-
-//     if (event.target.classList.contains("inner-card")) {
-//         if (!timer) { startTimer(); }
-//         // Flip the card
-//         flipCard(event.target.parentNode);
-//     }
-
-//     if (event.target.classList.contains("card-container")) {
-//         if (!timer) { startTimer(); }
-//         // Flip the card
-//         flipCard(event.target);
-//     }
-// });
 
 resetButton.addEventListener("click", (event) => {
   playSound("./sfx/button.mp3");
