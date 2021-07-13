@@ -1,6 +1,6 @@
 // GAME CONSTANTS
 const BOARD_SIZE = window.innerWidth/(window.innerWidth/.95)*100; // Board size is based on percentage of width of browser window
-const CARD_COLUMNS = 4;
+const CARD_COLUMNS = 6;
 const TILE_SIZE = (BOARD_SIZE / CARD_COLUMNS) * .82;
 const MAX_CARDS = CARD_COLUMNS * CARD_COLUMNS; // This variable should not be changed (total number of cards)
 const MAX_MATCHES = MAX_CARDS / 2; // This variable should not be changed (total number of possible matches)
@@ -165,6 +165,20 @@ const stopTimer = () => {
     timer = clearInterval(timer);
 }
 
+const handleCardClick = (card) => {
+    if (!timer) { startTimer(); }
+
+    // Prevent the ability to match with the same card
+    if (flippedCards.length === 1) {
+        if (flippedCards[0].id === card.id) { return; }
+    }
+
+    // Ignore card that has already been matched
+    if (card.classList.contains("matched")) { return; }
+
+    flipCard(card);
+}
+
 const flipCard = (card) => {
     // TODO: (FIX NEEDED) The same card can be "flipped" twice if tapped quickly enough
     // Do not flip card(s) if two are already flipped
@@ -218,6 +232,8 @@ const handleMatch = () => {
     if (flippedCards.length !== 2) { return; }
     console.log("Match!");
     // Add grow class to cards to visually indicate a match was found
+    flippedCards[0].classList.add("matched");
+    flippedCards[1].classList.add("matched");
     flippedCards[0].classList.add("grow");
     flippedCards[1].classList.add("grow");
 
@@ -366,47 +382,37 @@ const playSound = (path) => {
 board.addEventListener("click", (event) => {
     // Ensure the back of the card is clicked
     if (event.target.classList.contains("card-back") || event.target.classList.contains("card-front")) {
-        // Start timer if not already started (timer is undefined)
-        if (!timer) { startTimer(); }
-        // Flip the card
-        flipCard(event.target.parentNode.parentNode);
-    }
-
-    if (event.target.classList.contains("inner-card")) {
-        if (!timer) { startTimer(); }
-        // Flip the card
-        flipCard(event.target.parentNode);
-    }
-
-    if (event.target.classList.contains("card-container")) {
-        if (!timer) { startTimer(); }
-        // Flip the card
-        flipCard(event.target);
+        handleCardClick(event.target.parentNode.parentNode);
+    } else if (event.target.classList.contains("inner-card")) {
+        handleCardClick(event.target.parentNode);
+    } else if (event.target.classList.contains("card-container")) {
+        handleCardClick(event.target);
     }
 });
 
 // Listen for card taps
-board.addEventListener("touchstart", (event) => {
-    // Ensure the back of the card is clicked
-    if (event.target.classList.contains("card-back") || event.target.classList.contains("card-front")) {
-        // Start timer if not already started (timer is undefined)
-        if (!timer) { startTimer(); }
-        // Flip the card
-        flipCard(event.target.parentNode.parentNode);
-    }
+// board.addEventListener("touchstart", (event) => {
 
-    if (event.target.classList.contains("inner-card")) {
-        if (!timer) { startTimer(); }
-        // Flip the card
-        flipCard(event.target.parentNode);
-    }
+//     // Ensure the back of the card is clicked
+//     if (event.target.classList.contains("card-back") || event.target.classList.contains("card-front")) {
+//         // Start timer if not already started (timer is undefined)
+//         if (!timer) { startTimer(); }
+//         // Flip the card
+//         flipCard(event.target.parentNode.parentNode);
+//     }
 
-    if (event.target.classList.contains("card-container")) {
-        if (!timer) { startTimer(); }
-        // Flip the card
-        flipCard(event.target);
-    }
-});
+//     if (event.target.classList.contains("inner-card")) {
+//         if (!timer) { startTimer(); }
+//         // Flip the card
+//         flipCard(event.target.parentNode);
+//     }
+
+//     if (event.target.classList.contains("card-container")) {
+//         if (!timer) { startTimer(); }
+//         // Flip the card
+//         flipCard(event.target);
+//     }
+// });
 
 resetButton.addEventListener("click", (event) => {
     playSound("./sfx/button.mp3");
